@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bellwether Forum | Fostering Principled Leadership</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --background-dark: #111827;
+            --background-light: #1F2937;
+            --text-primary: #F9FAFB;
+            --text-secondary: #9CA3AF;
+            --accent-color: #38BDF8;
+            --border-color: #374151;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-dark);
+            color: var(--text-secondary);
+        }
+
+        /* --- Typography --- */
+        h1, h2, h3 {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; margin-bottom: 2rem; }
+        h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+        
+        p { margin-bottom: 1.5rem; }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover { color: #7dd3fc; }
+
+        .highlight-text {
+            background: linear-gradient(to right, #38bdf8, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- Layout & Sections --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        header {
+            background: rgba(17, 24, 39, 0.8);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav .logo {
+            font-family: 'Inter', sans-serif;
+            font-weight: 800;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+        }
+
+        nav .nav-links a {
+            color: var(--text-secondary);
+            padding: 0.5rem 1rem;
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        nav .nav-links a:hover { color: var(--text-primary); }
+
+        main > section {
+            padding: 6rem 0;
+        }
+
+        main > section:not(:last-of-type) {
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            text-align: center;
+            padding: 8rem 0;
+        }
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 1.5rem auto 0;
+        }
+        
+        /* --- Content Sections (REBUILT WITH FLEXBOX) --- */
+        .content-section {
+            display: flex;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .text-content, .image-content {
+            flex: 1;
+            min-width: 0; /* Prevents flex items from overflowing */
+        }
+
+        /* Use order property to swap visual position */
+        .content-section.image-left .text-content { order: 2; }
+        .content-section.image-left .image-content { order: 1; }
+        
+        .image-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        }
+
+        /* --- Event Callout Section --- */
+        #event {
+            background-color: var(--background-light);
+            border-radius: 16px;
+            padding: 4rem;
+            text-align: center;
+        }
+        #event h2 { font-size: 2rem; }
+        
+        .event-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            margin-top: 2rem;
+        }
+        
+        .event-grid img {
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        /* --- Footer --- */
+        footer {
+            background-color: var(--background-light);
+            padding: 4rem 0;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 2rem;
+        }
+        
+        .footer-grid .about p {
+             margin-bottom: 0.5rem;
+        }
+        
+        .footer-grid h4 {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-grid ul { list-style: none; padding: 0; margin: 0; }
+        .footer-grid ul li { margin-bottom: 0.5rem; }
+
+        .footer-bottom {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 900px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+
+            /* Switch to a stacked layout for content sections */
+            .content-section {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            /* Reset order to ensure text is always first on mobile */
+            .content-section.image-left .text-content,
+            .content-section.image-left .image-content {
+                order: initial;
+            }
+
+            .event-grid { grid-template-columns: 1fr; }
+            .event-grid img { max-width: 200px; margin: 0 auto; }
+            
+            main > section { padding: 4rem 0; }
+        }
+        
+        @media (max-width: 600px) {
+            nav .nav-links { display: none; }
+            .hero { padding: 5rem 0; }
+            #event { padding: 2rem; }
+            .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <a href="#" class="logo">Bellwether Forum</a>
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#houston">Houston</a>
+                    <a href="#international">International</a>
+                    <a href="#leaders">Leaders</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main id="content-container">
+        <!-- Content will be dynamically generated here -->
+    </main>
+
+    <footer id="footer-container">
+        <!-- Footer will be dynamically generated here -->
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const contentContainer = document.getElementById('content-container');
+            const footerContainer = document.getElementById('footer-container');
+
+            const pageData = {
+                "hero": {
+                    "title": "Empowering the <span class='highlight-text'>Next Generation</span> of Leaders",
+                    "subtitle": "Fostering civic engagement and principled leadership through education, mentorship, and global awareness."
+                },
+                "about": {
+                    "title": "About Bellwether Forum",
+                    "content": "Founded in 2001 in Houston, Texas, the Bellwether Forum is a nonprofit, non-partisan 501(c)(3) educational organization. We are dedicated to educating professionals and students about government, politics, and public policy, emphasizing principles of free enterprise, limited government, individual freedom, traditional American values, and a strong national defense.",
+                    "image": "https://ik.imagekit.io/kwhhs5efm/bf/thumbnail_crowd.jpg"
+                },
+                "houston": {
+                    "title": "Bellwether Houston",
+                    "content": "Our dynamic leadership program for high school students fosters civic engagement and development. Each semester, we host lectures for 150-175 students on critical topics like government, public policy, and individual liberty. The program is complemented by mentorship from experienced professionals, empowering Houston’s young leaders to become active, principled contributors to their communities. Students also enjoy our collaboration with Young America’s Foundation, attending conferences nationwide.",
+                    "image": "https://ik.imagekit.io/kwhhs5efm/bf/thumbnail_IMG_4289.jpg"
+                },
+                "event": {
+                    "title": "Upcoming Event",
+                    "heading": "From the Killing Fields to the White House",
+                    "speaker": "with former U.S. Ambassador Sichan Siv",
+                    "date": "Saturday, October 4, 2025, at 6:00 p.m.",
+                    "description": "Born in Cambodia in 1948, Siv survived the Khmer Rouge genocide after losing his entire family. He will vividly recount his harrowing journey from forced labor camps to a high-profile career in U.S. foreign policy. Following the talk, Amb. Siv will sign copies of his 2023 book, <em>Golden Bones</em>.",
+                    "speaker_image": "https://ik.imagekit.io/kwhhs5efm/bf/thumbnail_Sichan_Siv_official_portrait.jpg",
+                    "book_image": "https://ik.imagekit.io/kwhhs5efm/bf/thumbnail_book.jpg"
+                },
+                "international": {
+                    "title": "Bellwether International",
+                    "content": "In September 2025, we are launching a pilot program, taking 20 Houston high school student leaders to New York City to attend the United Nations General Assembly. This initiative, supported by Bellwether alumnus and UN leader Kushal Ramyad, offers a unique opportunity to engage with global leaders and explore international diplomacy firsthand. Our international efforts also include sponsoring election monitoring and educational activities in countries like the United Kingdom, France, Poland, Kyrgyzstan, and Mongolia.",
+                    "image": "https://ik.imagekit.io/kwhhs5efm/bf/thumbnail_Kushal.jpg"
+                },
+                "leaders": {
+                    "title": "Bellwether Leaders",
+                    "content": "Robert Painter, a Houston-based attorney, founded the Bellwether Forum in 2001. He gained international acclaim for his role in a landmark 2012 case recovering a smuggled Tyrannosaurus bataar skeleton for Mongolia. This high-profile litigation set a legal precedent, disrupted a thriving fossil smuggling trade, and resulted in the repatriation of over 70 significant dinosaur fossils. His work underscores his expertise in international law and cultural heritage protection, a passion he channels into mentoring young leaders through the Forum. <a href='https://montsame.mn/en/read/371855' target='_blank' rel='noopener noreferrer'>Read more on his work in Mongolia.</a>",
+                    "image": "https://ik.imagekit.io/kwhhs5efm/bf/thumbnail_dino%20museum.jpg"
+                },
+                "footer": {
+                    "about_short": "The Bellwether Forum is a nonprofit educational organization focused on educating professionals and students about government, politics, and public policy.",
+                    "address_lines": ["12750 Champion Forest Dr.", "Houston, TX 77066"],
+                    "nonprofit_status": "A 501(c)(3) nonprofit, non-partisan educational organization.",
+                    "copyright": `© ${new Date().getFullYear()} Bellwether Forum. All Rights Reserved.`
+                }
+            };
+
+            // --- Build Page Content ---
+            const heroData = pageData.hero;
+            const heroSection = document.createElement('section');
+            heroSection.className = 'hero';
+            heroSection.innerHTML = `<div class="container"><h1>${heroData.title}</h1><p>${heroData.subtitle}</p></div>`;
+            contentContainer.appendChild(heroSection);
+            
+            const createContentSection = (id, data, imagePosition) => {
+                const section = document.createElement('section');
+                section.id = id;
+                const imagePositionClass = imagePosition === 'left' ? 'image-left' : 'image-right';
+                section.innerHTML = `
+                    <div class="container">
+                        <div class="content-section ${imagePositionClass}">
+                            <div class="text-content">
+                                <h2>${data.title}</h2>
+                                <p>${data.content}</p>
+                            </div>
+                            <div class="image-content">
+                                <img src="${data.image}" alt="${data.title}" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                `;
+                return section;
+            };
+            
+            contentContainer.appendChild(createContentSection('about', pageData.about, 'right'));
+            contentContainer.appendChild(createContentSection('houston', pageData.houston, 'left'));
+
+            const eventData = pageData.event;
+            const eventSection = document.createElement('section');
+            eventSection.innerHTML = `
+                <div class="container">
+                    <div id="event">
+                        <h3>${eventData.title}</h3>
+                        <h2>${eventData.heading}</h2>
+                        <p>${eventData.speaker}<br><strong>${eventData.date}</strong></p>
+                        <div class="event-grid">
+                            <img src="${eventData.speaker_image}" alt="Portrait of Sichan Siv" loading="lazy">
+                            <p>${eventData.description}</p>
+                            <img src="${eventData.book_image}" alt="Golden Bones book cover" loading="lazy">
+                        </div>
+                    </div>
+                </div>`;
+            contentContainer.appendChild(eventSection);
+
+            contentContainer.appendChild(createContentSection('international', pageData.international, 'right'));
+            contentContainer.appendChild(createContentSection('leaders', pageData.leaders, 'left'));
+
+            // --- Build Footer ---
+            const footerData = pageData.footer;
+            footerContainer.innerHTML = `
+                <div class="container">
+                    <div class="footer-grid">
+                        <div class="about">
+                            <h4>Bellwether Forum</h4>
+                            <p>${footerData.about_short}</p>
+                            <p><strong>Address:</strong><br>${footerData.address_lines.join('<br>')}</p>
+                            <p><em>${footerData.nonprofit_status}</em></p>
+                        </div>
+                        <div>
+                            <h4>Quick Links</h4>
+                            <ul>
+                                <li><a href="#about">About</a></li>
+                                <li><a href="#houston">Bellwether Houston</a></li>
+                                <li><a href="#international">Bellwether International</a></li>
+                                <li><a href="#leaders">Bellwether Leaders</a></li>
+                            </ul>
+                        </div>
+                         <div>
+<!--connect-->
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>${footerData.copyright}</p>
+                    </div>
+                </div>`;
+        });
+    </script>
+</body>
+</html>
